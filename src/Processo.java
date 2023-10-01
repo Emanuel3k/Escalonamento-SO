@@ -3,17 +3,31 @@ public class Processo {
     private int pId;
     private int arrivalTime;
     private int burstTime;
-    private int priority; // Usado apenas no escalonamento por prioridade
+    private int completionTime;
+    private int waitingTime;
+    private int quantum; // Usado apenas no escalonamento Round Robin
+    private Integer priority; // Usado apenas no escalonamento por prioridade
 
     // Construtor
-    public Processo(int pId, int arrivalTime, int burstTime, int priority) {
+
+    // FCFS, SJF e RR
+    public Processo(int pId, int arrivalTime, int burstTime) {
         this.pId = pId;
         this.arrivalTime = arrivalTime;
         this.burstTime = burstTime;
-        this.priority = priority;
     }
 
+    // Priority
+    public Processo(int pId, int priority, int arrivalTime, int burstTime) {
+        this.pId = pId;
+        this.priority = priority;
+        this.arrivalTime = arrivalTime;
+        this.burstTime = burstTime;
+    }
+    
+
     // Getters e Setters
+
     public int getpId() {
         return pId;
     }
@@ -38,6 +52,22 @@ public class Processo {
         this.burstTime = burstTime;
     }
 
+    public int getCompletionTime() {
+        return completionTime;
+    }
+
+    public void setCompletionTime(int completionTime) {
+        this.completionTime = completionTime;
+    }
+
+    public int getWaitingTime() {
+        return waitingTime;
+    }
+
+    public void setWaitingTime(int waitingTime) {
+        this.waitingTime = waitingTime;
+    }
+
     public int getPriority() {
         return priority;
     }
@@ -46,10 +76,28 @@ public class Processo {
         this.priority = priority;
     }
 
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    public int getQuantum() {
+        return quantum;
+    }
+
+    public void setQuantum(int quantum) {
+        this.quantum = quantum;
+    }
+
     @Override
     public String toString() {
-        return "Processo [pId=" + pId + ", arrivalTime=" + arrivalTime + ", burstTime=" + burstTime + ", priority="
-                + priority + "]";
+        if (priority != null) {
+            return pId + "\t" + priority + "\t" + arrivalTime + "\t" + burstTime + "\t" + completionTime + "\t"
+                    + getArrivalTime() + "\t" + getWaitingTime()
+                    + "\t";
+        }
+        return pId + "\t" + arrivalTime + "\t" + burstTime + "\t" + completionTime + "\t" + getArrivalTime() + "\t"
+                + getWaitingTime() + "\t";
+
     }
 
 }
